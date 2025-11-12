@@ -8,8 +8,8 @@ import java.util.Map;
  * This class generates a statement for a given invoice of performances.
  */
 public class StatementPrinter {
-    private Invoice invoice;
     private static Map<String, Play> plays;
+    private Invoice invoice;
 
     public StatementPrinter(Invoice invoice, Map<String, Play> plays) {
         this.invoice = invoice;
