@@ -1,2 +1,5 @@
-18b5f16 (HEAD -> main, origin/main, origin/HEAD) Task 1.1
+27e39de Task 2.1
+ad8f005 Task 2.1
+ed1d97b Task 1.2
+18b5f16 Task 1.1
 a125f13 Initial commit
