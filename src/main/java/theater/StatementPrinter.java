@@ -32,7 +32,8 @@ public class StatementPrinter {
                             / Constants.PERCENT_FACTOR), performance.getAudience()));
         }
 
-        usd(result, String.format("Amount owed is %s%n", NumberFormat.getCurrencyInstance(Locale.US).format(getTotalAmount() / Constants.PERCENT_FACTOR)));
+        usd(result, String.format("Amount owed is %s%n",
+                NumberFormat.getCurrencyInstance(Locale.US).format(getTotalAmount() / Constants.PERCENT_FACTOR)));
         usd(result, String.format("You earned %s credits%n", getTotalVolumeCredits()));
         return result.toString();
     }
