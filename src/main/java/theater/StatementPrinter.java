@@ -22,23 +22,37 @@ public class StatementPrinter {
      * @throws RuntimeException if one of the play types is not known
      */
     public String statement() {
-        int totalAmount = 0;
-        int volumeCredits = 0;
+
         final StringBuilder result =
                 new StringBuilder("Statement for " + invoice.getCustomer() + System.lineSeparator());
-
         for (Performance performance : invoice.getPerformances()) {
-
-            volumeCredits += getVolumeCredits(performance);
-
             // print line for this order
             usd(result, String.format("  %s: %s (%s seats)%n", getPlay(performance).getName(),
-                    NumberFormat.getCurrencyInstance(Locale.US).format(getAmount(performance) / Constants.PERCENT_FACTOR), performance.getAudience()));
-            totalAmount += getAmount(performance);
+                    NumberFormat.getCurrencyInstance(Locale.US).format(getAmount(performance)
+                            / Constants.PERCENT_FACTOR), performance.getAudience()));
         }
-        usd(result, String.format("Amount owed is %s%n", NumberFormat.getCurrencyInstance(Locale.US).format(totalAmount / Constants.PERCENT_FACTOR)));
-        usd(result, String.format("You earned %s credits%n", volumeCredits));
+
+        usd(result, String.format("Amount owed is %s%n", NumberFormat.getCurrencyInstance(Locale.US).format(getTotalAmount() / Constants.PERCENT_FACTOR)));
+        usd(result, String.format("You earned %s credits%n", getTotalVolumeCredits()));
         return result.toString();
+    }
+
+    private int getTotalAmount() {
+        int result = 0;
+        for (Performance performance : invoice.getPerformances()) {
+            result += getAmount(performance);
+        }
+        return result;
+    }
+
+    private int getTotalVolumeCredits() {
+        int result = 0;
+        for (Performance performance : invoice.getPerformances()) {
+
+            result += getVolumeCredits(performance);
+
+        }
+        return result;
     }
 
     private static StringBuilder usd(StringBuilder result, String us1) {
